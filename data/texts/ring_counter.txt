@@ -1,0 +1,35 @@
+A ring counter is a type of counter composed of flip-flops connected into a shift register, with the output of the last flip-flop fed to the input of the first, making a "circular" or "ring" structure.
+
+There are two types of ring counters:
+
+    A straight ring counter, also known as a one-hot counter, connects the output of the last shift register to the first shift register input and circulates a single one (or zero) bit around the ring.
+    A twisted ring counter, also called switch-tail ring counter, walking ring counter, Johnson counter, or Möbius counter, connects the complement of the output of the last shift register to the input of the first register and circulates a stream of ones followed by zeros around the ring.
+
+Ring counters are often used in hardware design (e.g. ASIC and FPGA design) to create finite-state machines. A binary counter would require an adder circuit which is substantially more complex than a ring counter and has higher propagation delay as the number of bits increases, whereas the propagation delay of a ring counter will be nearly constant regardless of the number of bits in the code.
+
+The straight and twisted forms have different properties, and relative advantages and disadvantages.
+
+A general disadvantage of ring counters is that they are lower density codes than normal binary encodings of state numbers. A binary counter can represent 2^N states, where N is the number of bits in the code, whereas a straight ring counter can represent only N states and a Johnson counter can represent only 2N states. This may be an important consideration in hardware implementations where registers are more expensive than combinational logic.
+
+Johnson counters are sometimes favored, because they offer twice as many count states from the same number of shift registers, and because they are able to self-initialize from the all-zeros state, without requiring the first count bit to be injected externally at start-up. The Johnson counter generates a code in which adjacent states differ by only one bit (that is, have a Hamming distance of 1), as in a Gray code, which can be useful if the bit pattern is going to be asynchronously sampled.[1]
+
+When a fully decoded or one-hot representation of the counter state is needed, as in some sequence controllers, the straight ring counter is preferred. The one-hot property means that the set of codes are separated by a minimum Hamming distance of 2,[2] so any single-bit error is detectable (as is any error pattern other than turning on one bit and turning off one bit).
+
+Sometimes bidirectional shift registers are used (using multiplexors to take the input for each flip-flop from its left or right neighbor), so that bidirectional or up–down ring counters can be made.
+
+Before the days of digital computing, digital counters were used to measure rates of random events such as radioactive decays to alpha and beta particle. Fast "pre-scaling" counters reduced the rate of random events to more manageable and more regular rates. Five-state ring counters were used along with divide-by-two scalers to make decade (power-of-ten) scalers before 1940, such as those developed by C. E. Wynn-Williams.[5]
+
+Early ring counters used only one active element (vacuum tube, valve, or transistor) per stage, relying on global feedback rather than local bistable flip-flops, to suppress states other than the one-hot states, for example in the 1941 patent filing of Robert E. Mumma of the National Cash Registor Company.[6] Wilcox P. Overbeck invented a version using multiple anodes in a single vacuum tube,[7][8] In recognition of his work, ring counters are sometimes referred to as "Overbeck rings"[9][10] (and after 2006, sometimes as "Overbeck counters", since Wikipedia used that term from 2006 to 2018).
+
+The ENIAC used decimal arithmetic based on 10-state one-hot ring counters. The works of Mumma at NCR and Overbeck at MIT were among the prior art works examined by the patent office in invalidated the patents of J. Presper Eckert and John Mauchly for the ENIAC technology.[11]
+
+By the 1950s, ring counters with a two-tube or twin-triode flip-flop per stage were appearing.[12]
+
+Robert Royce Johnson developed a number of different shift-register-based counters with the aim of making different numbers of states with the simplest possible feedback logic, and filed for a patent in 1953.[13] The Johnson counter is the simplest of these.
+Applications
+
+Early applications of ring counters were as frequency prescalers (e.g. for Geiger counter and such instruments)[5], as counters to count pattern occurrences in cryptanalysis (e.g. in the Heath Robinson codebreaking machine and the Colossus computer)[14], and as accumulator counter elements for decimal arithmetic in computers and calculators, using either bi-quinary (as in the Colossus) or ten-state one-hot (as in the ENIAC) representations.
+
+Straight ring counters generate fully decoded one-hot codes to that are often used to enable a specific action in each state of a cyclic control cycle. One-hot codes can also be decoded from a Johnson counter, using one gate for each state.[15][16]
+
+Besides being an efficient alternative way to generate one-hot codes and frequency pre-scalers, a Johnson counter is also a simple way to encode a cycle of states that can be asynchronously sampled without glitching, since only one bit changes at a time, as in a Gray code. Early computer mice used up–down (bidirectional) 2-bit Johnson or Gray encodings to indicate motion in each of the two dimensions, though in mice those codes were not usually generated by rings of flip-flops (but instead by electro-mechanical or optical quadrature encoders).[17] Note that a 2-bit Johnson code and a 2-bit Gray code are identical, while for 3 or more bits Gray and Johnson codes are different.
